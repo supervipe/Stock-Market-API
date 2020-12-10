@@ -1,8 +1,14 @@
 package unifor.com.B3TCH.Model;
 
-import java.util.Date;
+import javax.persistence.*;
 
+@Table(name = "scrip")
+@Entity
 public class Scrip {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String name;
     private String ticker;
@@ -10,11 +16,14 @@ public class Scrip {
     private double priceBought;
     private double percentageToday;
     private double percentageBought;
-    private Date dateToday;
-    private Date dateBought;
+    private String dateToday;
+    private String dateBought;
     private int quantity;
 
-    public Scrip(String name, String ticker, double priceToday, double priceBought, double percentageToday, double percentageBought, Date dateToday, Date dateBought, int quantity) {
+    @ManyToOne
+    private User user;
+
+    public Scrip(String name, String ticker, double priceToday, double priceBought, double percentageToday, double percentageBought, String dateToday, String dateBought, int quantity) {
         this.name = name;
         this.ticker = ticker;
         this.priceToday = priceToday;
@@ -26,6 +35,9 @@ public class Scrip {
         this.quantity = quantity;
     }
 
+    public Scrip(){
+
+    }
     public double getPriceToday() {
         return priceToday;
     }
@@ -42,11 +54,11 @@ public class Scrip {
         this.percentageToday = percentageToday;
     }
 
-    public Date getDateToday() {
+    public String getDateToday() {
         return dateToday;
     }
 
-    public void setDateToday(Date dateToday) {
+    public void setDateToday(String dateToday) {
         this.dateToday = dateToday;
     }
 
@@ -66,7 +78,7 @@ public class Scrip {
         return percentageBought;
     }
 
-    public Date getDateBought() {
+    public String getDateBought() {
         return dateBought;
     }
 
@@ -76,5 +88,9 @@ public class Scrip {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -1,30 +1,31 @@
 package unifor.com.B3TCH.Model;
 
+import javax.persistence.*;
+
+@Table(name = "yield")
+@Entity
 public class Yield {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private double profitTotal;
     private double profitScrip;
-    private User user;
-
-    public Yield(User user) {
-        this.user = user;
-    }
-
 
     public double getProfitTotal() {
-        double prof = 0;
-        for (Scrip scrip: user.getScrips()) {
-            prof = prof + scrip.getPriceToday() - scrip.getPriceBought();
-        };
-        this.profitTotal = prof;
-        return this.profitTotal;
+        return profitTotal;
     }
 
+    public void setProfitTotal(double profitTotal) {
+        this.profitTotal = profitTotal;
+    }
 
-    public double getProfitScrip(String ticker) {
-        double prof = 0;
-        prof = user.getScrip(ticker).getPriceToday() - user.getScrip(ticker).getPriceBought();
-        this.profitScrip = prof;
-        return this.profitScrip;
+    public double getProfitScrip() {
+        return profitScrip;
+    }
+
+    public void setProfitScrip(double profitScrip) {
+        this.profitScrip = profitScrip;
     }
 }
