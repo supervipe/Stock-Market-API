@@ -1,9 +1,12 @@
 package unifor.com.B3TCH.Services;
 
+import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
+import unifor.com.B3TCH.Model.Data;
 import unifor.com.B3TCH.Model.Scrip;
 import unifor.com.B3TCH.Model.User;
 import unifor.com.B3TCH.Model.Yield;
+import unifor.com.B3TCH.Repository.ScripRepository;
 import unifor.com.B3TCH.Repository.UserRepository;
 
 import java.util.Collections;
@@ -14,9 +17,11 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    private ScripRepository scripRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ScripRepository scripRepository) {
         this.userRepository = userRepository;
+        this.scripRepository = scripRepository;
     }
 
     public Optional<User> getUser(int id) {
@@ -28,14 +33,18 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(int id,String email, String password) {
+    public User updateUser(int id, Object up) {
         Optional<User> userOpt = getUser(id);
         if(userOpt.isEmpty()){
             return null;
         }
         User userFinal = userOpt.get();
-        userFinal.setEmail(email);
-        userFinal.setPassword(password);
+
+        Gson gson = new Gson();
+        Data update = gson.fromJson(up.toString(), Data.class);
+
+        userFinal.setEmail(update.getEmail());
+        userFinal.setPassword(update.getPassword());
         this.userRepository.save(userFinal);
         return userFinal;
     }
@@ -75,7 +84,9 @@ public class UserService {
             return null;
         }
         User userFinal = userOpt.get();
+        Scrip s = userFinal.getScrip(ticker);
         userFinal.removeScrip(ticker);
+        this.scripRepository.deleteById(s.getId());
         this.userRepository.save(userFinal);
         return userFinal.getScrips();
     }
@@ -86,6 +97,7 @@ public class UserService {
             return null;
         }
         User userFinal = userOpt.get();
+        userFinal.setYield(new Yield());
         userFinal.updateProfitTotal();
         this.userRepository.save(userFinal);
         return userFinal.getYield();

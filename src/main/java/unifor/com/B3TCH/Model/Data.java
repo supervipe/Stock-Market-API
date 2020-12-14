@@ -1,17 +1,20 @@
 package unifor.com.B3TCH.Model;
 
-import java.util.Map;
-
 public class Data {
 
-    private String by;
-    private Boolean valid_key;
-    private Map<String, Map<String, Object>> results;
+    private String password;
+    private String email;
 
-    private String execution_time;
-    private String from_cache;
+    public Data(String password, String email) {
+        this.password = password;
+        this.email = email;
+    }
 
-    public Map<String, Map<String, Object>> getResults() {
-        return results;
+    public String getPassword() {
+        return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

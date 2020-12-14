@@ -38,6 +38,10 @@ public class User {
         return id;
     }
 
+    public void setYield(Yield yield) {
+        this.yield = yield;
+    }
+
     public long getCpf() {
         return cpf;
     }
@@ -75,7 +79,9 @@ public class User {
         return scrips;
     }
     public List<Scrip> removeScrip(String ticker) {
+        Scrip s = getScrip(ticker);
         scrips.remove(getScrip(ticker));
+
         return scrips;
     }
 

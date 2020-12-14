@@ -13,6 +13,16 @@ public class Yield {
     private double profitTotal;
     private double profitScrip;
 
+    @OneToOne
+    private User user;
+
+    public Yield() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     public double getProfitTotal() {
         return profitTotal;
     }

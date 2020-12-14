@@ -30,19 +30,20 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id,@RequestBody String email,String password) {
-        User u = this.userService.updateUser(id,email,password);
+    public ResponseEntity<User> updateUser(@PathVariable(value = "id") int id,@RequestBody Object up) {
+        System.out.println(up);
+        User u = this.userService.updateUser(id,up);
         return ResponseEntity.ok(u);
     }
 
     @PatchMapping("/{id}/yield")
     public ResponseEntity<Yield> updateTotalProfit(@PathVariable(value = "id") int id){
-        Yield y = userService.updateTotalProfit(id);
+        Yield y = this.userService.updateTotalProfit(id);
         return ResponseEntity.ok(y);
     }
     @PatchMapping("/{id}/yield/{ticker}")
     public ResponseEntity<Yield> updateScripProfit(@PathVariable(value = "id") int id, @PathVariable(value = "ticker") String ticker){
-        Yield y = userService.updateScripProfit(id,ticker);
+        Yield y = this.userService.updateScripProfit(id,ticker);
         return ResponseEntity.ok(y);
     }
 

@@ -53,7 +53,7 @@ public class ScripController {
     }
 
 
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     public List<Scrip> scripList(@PathVariable(value = "id") int id) {
         return this.userService.scripList(id);
     }
@@ -69,7 +69,7 @@ public class ScripController {
         return this.userService.addScrip(id,s);
     }
 
-    @DeleteMapping("/{id}/remove/{ticker}")
+    @DeleteMapping(value = "/{id}/remove/{ticker}")
     public List<Scrip> removeScrip(@PathVariable(value = "id") int id,@PathVariable(value = "ticker") String ticker){
         return this.userService.removeScrip(id,ticker);
     }
